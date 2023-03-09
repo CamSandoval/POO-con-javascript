@@ -1,6 +1,6 @@
 //Las clases son otra forma de crear protitipos o instancias para poder hacer objetos a partir de este
 class student{
-    constructor(name,age,cursosAprobados){
+    constructor(name,age,cursosAprobados=[]){
         this.name = name;
         this.age = age;
         this.cursosAprobados = cursosAprobados;

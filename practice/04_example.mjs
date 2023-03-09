@@ -1,10 +1,48 @@
+function reproducirVideo(id){
+    const ScretURL='http://platzi/videoarchisecreto'+id
+    console.log('Se esta reprodiciendo desde la url '+ ScretURL)
+}
+function pausarVideo(id){
+    const ScretURL='http://platzi/videoarchisecreto'+id
+    console.log('Pausado desde la url '+ ScretURL)
+}
+
+class PlatziClases{
+    constructor({name,videoID}){
+        this.name = name
+        this.videoID=videoID
+    }
+    reproducir(){
+        reproducirVideo(this.videoID)
+    }
+    pausar(){
+        pausarVideo(this.videoID)
+    }
+}
 class Courses{
     constructor({name,classes=[]}){
-        this.name=name;
+        //La utilización de '_' en la nomenclatura de un nombre es una forma de decir que este atributo no debera ser cambiado de manera manual:
+        //Ejemplo: courseHTML._name, sino que mediante los metodos set que se usaran mas adelante(BUENA PRACTICA)
+        this._name=name;
         this.classes=classes
+    }
+    //getters VISUALIZACIÓN
+    //Esta es una forma de VISUALIZACIÓN de los atributos de un objeto de manera compuesta que nos permite poer acceder a dichos atributos de manera mas segura
+    get nameComplete(){
+        return `${this._name} 2`
+    }
+    //Setters MODIFICACION
+    //Estos son metodos que permiten MODIFICAR un atributo del objeto de una manera más segura siguiendo asi las los propositos del encapsulamiento
+    set changeName(newName){
+        this._name=newName;
     }
 }
 const courseHTML = new Courses({name:'Curso Definitivo de HTML Y CSS'})
+//De esta manera podemos llamar al metodo nameComplete de una manera mas segura
+console.log(courseHTML.nameComplete)//Curso Definitivo de HTML Y CSS 2
+//Ahora si yo quisiera modificar el elemento nombre de mi objeto no lo reasignaria con sua tributo, sino que usaria la siguiente sintaxis:
+courseHTML.changeName='Curso de Creacion de Paginas web'
+console.log(courseHTML._name)//Curso de Creacion de Paginas web
 const courseScope =new Courses({name: 'Curso de closure y scope con javascript'})
 const courseReact =new Courses({name: 'Curso practico de React'})
 const courseAngular =new Courses({name: 'Curso de introduccion a Angular'})
@@ -71,6 +109,16 @@ console.log(Juan2);//Student {
       //courses: [ 'html', 'css', 'scope', 'React', 'angular' ]
     //}
   //}
-
 const miguel = new Student({name:'Miguel',username:'Miguelito123',email:'mgue@gmail.com',learningPaths:[escuelaData, escuelaVideoGames]})
 console.log(miguel);
+
+
+//EJERCICIO CALLBACK
+function sumar(a,b){
+    console.log(a+b)
+}
+const func=(num1,num2,callback)=>{
+    return callback(num1,num2)
+}
+
+func(5,6,sumar)
