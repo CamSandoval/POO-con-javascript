@@ -55,7 +55,7 @@ const courseUnity = new Courses({name:'Curso de motores de desarrollo con unity'
 const courseDesin = new Courses({name:'Curso de diseño de personajes para videojuegos'})
 
  //RETO:
-class LearningPaths{
+export class LearningPaths{
     constructor({
         name,
         courses =[]
@@ -122,3 +122,5 @@ const func=(num1,num2,callback)=>{
 }
 
 func(5,6,sumar)
+//export default LearningPaths()
+

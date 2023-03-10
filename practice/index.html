@@ -7,11 +7,12 @@
     <title>Document</title>
 </head>
 <body>
-    <!--<script src="./04_example.js" type="module">-->
-    </script>
-    <script src="./04_example.mjs">
-        const IndexModels = require('./04_example.mjs') 
-        const { PlatziClases } = IndexModels;
+    <!--<script src="./04_example.js" type="module">
+    </script type="module">-->
+    <!--Normalente este codigo deberia arrojar un error en el navegador, pero con comandos de npm y node esto se pudo revertir-->
+    <!--En caso de que no se usen dichos comandos, usar la sintaxis del archivo module.mjs y ejecutarla con coderunner para validar que si funcione correctamnete el programa-->
+    <script type="module">
+        import {PlatziClases} from './04_example.mjs'
     </script>
 </body>
 </html>
