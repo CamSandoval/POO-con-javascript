@@ -1,4 +1,4 @@
-import PlatziClases from './04_example.mjs'
+import {PlatziClases} from './04_example.mjs'
 
 const clase63= new PlatziClases({name:'Javascript orientado a objetos',videoID:'2258796454'})
 
