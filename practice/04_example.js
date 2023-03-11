@@ -7,7 +7,7 @@ function pausarVideo(id){
     console.log('Pausado desde la url '+ ScretURL)
 }
 
-export class PlatziClases{
+/*export */class PlatziClases{
     constructor({name,videoID}){
         this.name = name
         this.videoID=videoID
@@ -20,11 +20,13 @@ export class PlatziClases{
     }
 }
 class Courses{
-    constructor({name,classes=[]}){
+    constructor({name,classes=[],isFree = false, isInEnglish=false}){
         //La utilización de '_' en la nomenclatura de un nombre es una forma de decir que este atributo no debera ser cambiado de manera manual:
         //Ejemplo: courseHTML._name, sino que mediante los metodos set que se usaran mas adelante(BUENA PRACTICA)
         this._name=name;
         this.classes=classes
+        this.isFree=isFree
+        this.isInEnglish=isInEnglish
     }
     //getters VISUALIZACIÓN
     //Esta es una forma de VISUALIZACIÓN de los atributos de un objeto de manera compuesta que nos permite poer acceder a dichos atributos de manera mas segura
@@ -37,7 +39,7 @@ class Courses{
         this._name=newName;
     }
 }
-const courseHTML = new Courses({name:'Curso Definitivo de HTML Y CSS'})
+const courseHTML = new Courses({name:'Curso Definitivo de HTML Y CSS', isInEnglish:true})
 //De esta manera podemos llamar al metodo nameComplete de una manera mas segura
 console.log(courseHTML.nameComplete)//Curso Definitivo de HTML Y CSS 2
 //Ahora si yo quisiera modificar el elemento nombre de mi objeto no lo reasignaria con sua tributo, sino que usaria la siguiente sintaxis:
@@ -53,9 +55,10 @@ const courseExcell = new Courses({name:'Curso de Excel financiero'})
 const courseMicroC = new Courses({name:'Curso basico de C#'})
 const courseUnity = new Courses({name:'Curso de motores de desarrollo con unity'})
 const courseDesin = new Courses({name:'Curso de diseño de personajes para videojuegos'})
+const courseProgram = new Courses({name:'Curso de Programacion Gratis', isFree:true})
 
  //RETO:
-export class LearningPaths{
+class LearningPaths{
     constructor({
         name,
         courses =[]
@@ -65,9 +68,9 @@ export class LearningPaths{
     }
 }
 
-const escuelaWeb = new LearningPaths({name:'Escuela de desarrollo Web',courses:[courseAngular,courseHTML,courseReact,courseScope,courseGit]})
-const escuelaData = new LearningPaths({name:'Escuela de Data Science',courses:[courseGit,coursePython,courseJupyter,courseExcell]})
-const escuelaVideoGames = new LearningPaths({name:'Escuela de Videojuegos',courses:[courseGit,courseDesin,courseMicroC,courseUnity]})
+const escuelaWeb = new LearningPaths({name:'Escuela de desarrollo Web',courses:[courseAngular,courseHTML,courseReact,courseProgram,courseScope,courseGit]})
+const escuelaData = new LearningPaths({name:'Escuela de Data Science',courses:[courseGit,courseProgram,coursePython,courseJupyter,courseExcell]})
+const escuelaVideoGames = new LearningPaths({name:'Escuela de Videojuegos',courses:[courseGit,courseDesin,courseMicroC,courseUnity,courseProgram]})
 class Student{
     constructor({
         name,
@@ -92,13 +95,48 @@ class Student{
     }
 }
 
-const Juan2 = new Student({
+class FreeStudent extends Student{
+    constructor(props){
+        super(props)
+    }
+    aproveCourse(NewCourse){
+        if (NewCourse.isFree){
+            this.aprovedCourses.push(NewCourse)
+        } else {
+            console.error(`Lo sentimos ${this.name} solo puedes tomar cursos abiertos`)
+        }
+    }
+}
+
+class BasicStudent extends Student{
+    constructor(props){
+        super(props)
+    }
+
+    aproveCourse(NewCourse){
+        if (NewCourse.isInEnglish){
+            console.error(`Lo sentimos ${this.name} solo puedes tomar cursos en español`)
+        } else {
+            this.aprovedCourses.push(NewCourse)
+        }
+    }
+}
+
+class ExpertStudent extends Student{
+    constructor(props){
+        super(props)
+    }
+    aproveCourse(NewCourse){
+        this.aprovedCourses.push(NewCourse)
+    }
+}
+const juan = new BasicStudent({
     name: 'juan',
     email: 'juan@platzi.com',
     twitter: 'juaan2x',
     learningPaths:escuelaWeb
 })
-console.log(Juan2);//Student {
+console.log(juan);//Student {
     //name: 'juan',
     //email: 'juan@platzi.com',
     //username: undefined,
@@ -109,7 +147,7 @@ console.log(Juan2);//Student {
       //courses: [ 'html', 'css', 'scope', 'React', 'angular' ]
     //}
   //}
-const miguel = new Student({name:'Miguel',username:'Miguelito123',email:'mgue@gmail.com',learningPaths:[escuelaData, escuelaVideoGames]})
+const miguel = new FreeStudent({name:'Miguel',username:'Miguelito123',email:'mgue@gmail.com',learningPaths:[escuelaData, escuelaVideoGames]})
 console.log(miguel);
 
 
@@ -122,5 +160,3 @@ const func=(num1,num2,callback)=>{
 }
 
 func(5,6,sumar)
-//export default LearningPaths()
-
