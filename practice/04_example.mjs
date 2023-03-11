@@ -92,13 +92,13 @@ class Student{
     }
 }
 
-const Juan2 = new Student({
+const Juan23 = new Student({
     name: 'juan',
     email: 'juan@platzi.com',
     twitter: 'juaan2x',
     learningPaths:escuelaWeb
 })
-console.log(Juan2);//Student {
+console.log(Juan23);//Student {
     //name: 'juan',
     //email: 'juan@platzi.com',
     //username: undefined,
