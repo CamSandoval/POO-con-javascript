@@ -1,3 +1,19 @@
+class Comment{
+    constructor({content,studentName,studentRole='Estudante'}){
+        this.content=content
+        this.studentName=studentName
+        this.studentRole=studentRole
+        this.likes = 0
+    }
+
+    publicar(){
+        console.log(`${this.studentName} ( ${this.studentRole} ) `);
+        console.log(this.likes + ' likes');
+        console.log(this.content);
+    }
+}
+
+
 function reproducirVideo(id){
     const ScretURL='http://platzi/videoarchisecreto/'+id
     console.log('Se esta reprodiciendo desde la url '+ ScretURL)
@@ -93,6 +109,11 @@ class Student{
         this.aprovedCourses =aprovedCourses
         this.learningPaths=learningPaths
     }
+
+    publicarComentario(commentContent){
+        const comment = new Comment({content:commentContent,studentName:this.name})
+        comment.publicar()
+    }
 }
 
 class FreeStudent extends Student{
@@ -130,6 +151,19 @@ class ExpertStudent extends Student{
         this.aprovedCourses.push(NewCourse)
     }
 }
+
+class Teacher extends Student{
+    constructor(props){
+        super(props)
+    }
+    aproveCourse(NewCourse){
+        this.aprovedCourses.push(NewCourse)
+    }
+    publicarComentario(commentContent){
+        const comment = new Comment({content:commentContent,studentName:this.name, studentRole:'Team Platzi'})
+        comment.publicar()
+    }
+}
 const juan = new BasicStudent({
     name: 'juan',
     email: 'juan@platzi.com',
@@ -149,6 +183,8 @@ console.log(juan);//Student {
   //}
 const miguel = new FreeStudent({name:'Miguel',username:'Miguelito123',email:'mgue@gmail.com',learningPaths:[escuelaData, escuelaVideoGames]})
 console.log(miguel);
+
+const freddy = new Teacher({name:'Freddy Vega', username:'freddyer',email:'freddy@platzi.com',instagram:'freddier'})
 
 
 //EJERCICIO CALLBACK
